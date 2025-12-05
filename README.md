@@ -135,10 +135,12 @@ Superuser (Admin)	        Ria	                        ria12345                 r
 Owner	                    rohan                      	rohan12345	             rohan@dreamkart.com
 Staff	                    priya	                    priya12345	             priya@dreamkart.com
 Customer	                rahul	                    rahul12345	             rahul@dreamkart.com
+owner                       meena                       meena12345               meena@styleaura.com
+staff	                    kriti                       kriti12345               kriti@styleaura.com
 
 7. Setup Instructions:
 1️. Clone Repository
-   git clone https://github.com/<your-username>/multi-tenant-ecommerce.git
+   git clone https://github.com/Mehak164/multi-tenant-ecommerce
    cd multi-tenant-ecommerce
 
 2️. Create Virtual Environment
