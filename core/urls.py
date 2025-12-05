@@ -16,8 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include  
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("<h1>Welcome to Multi-Tenant E-commerce API </h1><p>Use /api/auth/, /api/products/, or /api/orders/</p>")
 
 urlpatterns = [
+    path('', home),
     path('admin/', admin.site.urls),
     path('api/auth/', include('users.urls')), 
     path('api/products/', include('products.urls')), 
