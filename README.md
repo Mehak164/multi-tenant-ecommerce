@@ -8,10 +8,10 @@ This is a multi-tenant e-commerce backend system built using Django, Django REST
 | Backend               | Django 5.2             |
 | API                   | Django REST Framework  |
 | Authentication        | JWT (SimpleJWT)        |
-| Database              | SQLite                 |
+| Database              | SQLite + PostgreSQL    |
 | Language              | Python 3.11            |
-| Deployment (optional) | Render / GCP Cloud Run |
-
+| Deployment            | Render + WhiteNoise    |
+| Live Hosting          | Render                 |
 
 2. Roles & Permissions:
 | Role         | Access                                           |
@@ -39,6 +39,14 @@ Each token includes:
 This allows the API to identify which tenant and role a user belongs to.
 
 5. API Endpoints:
+| Feature         | Method     | Endpoint              | Description                                         |
+| --------------- | ---------- | --------------------- | --------------------------------------------------- |
+|   Register      | POST       | `/api/auth/register/` | Register a new user and tenant                      |
+|   Login         | POST       | `/api/auth/login/`    | Authenticate user & get JWT token                   |
+|   Products      | GET / POST | `/api/products/`      | View or create tenant-specific products             |
+|   Orders        | GET / POST | `/api/orders/`        | Create or view orders (auto-calculates total price) |
+|   Admin Panel   | -          | `/admin/`             | Manage users, tenants, and data                     |
+
 - Register a New User / Store
   POST → /api/auth/register/
 
@@ -130,15 +138,19 @@ Response
 }
 
 6. Test Credentials:
-Role	                   Username	                    Password	                 Email
-Superuser (Admin)	        Ria	                        ria12345                 ria123@gmail.com
-Owner	                    rohan                      	rohan12345	             rohan@dreamkart.com
-Staff	                    priya	                    priya12345	             priya@dreamkart.com
-Customer	                rahul	                    rahul12345	             rahul@dreamkart.com
-owner                       meena                       meena12345               meena@styleaura.com
-staff	                    kriti                       kriti12345               kriti@styleaura.com
+|   Role	            |       Username	  |      Password	    |         Email            |
+|-----------------------|---------------------|---------------------|--------------------------|
+|  Superuser (Admin)	|       Ria	          |      ria12345       |     ria123@gmail.com     |
+|  Owner	            |       rohan         |      rohan12345	    |     rohan@dreamkart.com  |
+|  Staff	            |       priya	      |      priya12345	    |     priya@dreamkart.com  |
+|  Customer	            |       rahul	      |      rahul12345	    |     rahul@dreamkart.com  |
+|  owner                |       meena         |      meena12345     |     meena@styleaura.com  |
+|  staff	            |       kriti         |      kriti12345     |     kriti@styleaura.com  |
 
 7. Setup Instructions:
+- Live Deployment
+  Project is live at:https://multi-tenant-ecommerce-4a8e.onrender.com
+
 1️. Clone Repository
    git clone https://github.com/Mehak164/multi-tenant-ecommerce
    cd multi-tenant-ecommerce
@@ -157,10 +169,18 @@ staff	                    kriti                       kriti12345               k
 5️. Run Server
    python manage.py runserver
 
-
 Visit: http://127.0.0.1:8000/admin/
 
-8. Summary of Implementation
+8. Deployment Notes
+ To deploy to Render:
+ - Push all code to GitHub.
+ - Connect your repository on Render.
+ - Use:
+    Build Command: pip install -r requirements.txt
+    Start Command: gunicorn core.wsgi:application
+ - Add your Render domain to ALLOWED_HOSTS in core/settings.py.
+
+9. Summary of Implementation
 - Multi-tenancy implemented using Tenant model
 - Role-based user access (Owner, Staff, Customer)
 - JWT authentication with tenant_id and role in tokens
@@ -175,7 +195,7 @@ Visit: http://127.0.0.1:8000/admin/
   Email: mehaktaj8709@gmail.com
 
 - Final Note
-This project implements all assessment requirements using Django, DRF, and JWT Authentication.
+This project implements all assessment requirements using Django, DRF,JWT Authentication and Deployment.
 Each tenant (store) operates independently and user roles control access securely.
 
 For AskMeIdentity Backend Developer Assessment – 2025
